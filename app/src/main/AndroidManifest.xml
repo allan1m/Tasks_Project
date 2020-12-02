@@ -16,6 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".UserBoard"></activity>
         <activity android:name=".TaskBoard"></activity>
         <activity android:name=".TaskView" />
 
