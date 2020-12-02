@@ -1,8 +1,11 @@
 package com.cs246.cleaningtasks;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
-public class Task {
+public class Task implements Parcelable {
     private String mainTaskTitle;
 
     private String assignee;
@@ -25,6 +28,32 @@ public class Task {
         this.mainTaskDescription = mainTaskDescription;
         this.mainTaskTitle = mainTaskTitle;
     }
+
+    /**
+     * Parcelable constructor
+     * @param in
+     */
+    protected Task(Parcel in) {
+        mainTaskTitle = in.readString();
+        assignee = in.readString();
+        mainTaskDescription = in.readString();
+        subTaskList = in.createStringArrayList();
+    }
+
+    /**
+     * Parcelable creator
+     */
+    public static final Creator<Task> CREATOR = new Creator<Task>() {
+        @Override
+        public Task createFromParcel(Parcel in) {
+            return new Task(in);
+        }
+
+        @Override
+        public Task[] newArray(int size) {
+            return new Task[size];
+        }
+    };
 
     public String getMainTaskTitle() {
         return mainTaskTitle;
@@ -63,4 +92,21 @@ public class Task {
     }
 
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    /**
+     * Write into parcel for passage between activities
+     * @param dest
+     * @param flags
+     */
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(mainTaskTitle);
+        dest.writeString(assignee);
+        dest.writeString(mainTaskDescription);
+        dest.writeStringList(subTaskList);
+    }
 }

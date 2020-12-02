@@ -3,6 +3,7 @@ package com.cs246.cleaningtasks;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     private ArrayList<Task> taskList;
     private OnTouchListener onTouchListener;
+
 
     public Adapter(ArrayList<Task> taskList, OnTouchListener onTouchListener){
         this.onTouchListener = onTouchListener;
@@ -31,7 +33,9 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         private TextView mainDescription;
         //private TextView completed;
         private TextView asignee;
+        private Button delete;
         OnTouchListener onTouchListener;
+
 
         public MyViewHolder(final View view, OnTouchListener onTouchListener){
             super(view);
@@ -41,13 +45,17 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             //completed = view.findViewById(R.id.completed);
             asignee = view.findViewById(R.id.asignee);
             this.onTouchListener = onTouchListener;
+
+
             itemView.setOnClickListener(this);
         }
 
 
         @Override
         public void onClick(View v) {
+
             onTouchListener.onCardClick(getAdapterPosition());
+
         }
     }
 

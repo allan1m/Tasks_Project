@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/task_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Task Name"/>
+
+    <EditText
+        android:id="@+id/task_assignee"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Assigned To"
+        android:layout_below="@+id/task_name"/>
+    <EditText
+        android:id="@+id/task_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Task Description"
+        android:layout_below="@+id/task_assignee"/>
+
+</RelativeLayout>
