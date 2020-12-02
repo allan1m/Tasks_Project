@@ -102,4 +102,9 @@ public class TaskBoard extends AppCompatActivity
         adapter.notifyItemInserted(position);
     }
 
+    @Override
+    public void onDeleteClick(int position) {
+        taskList.remove(position);
+        adapter.notifyItemRemoved(position);
+    }
 }

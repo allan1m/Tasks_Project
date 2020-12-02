@@ -4,6 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,9 +32,8 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView mainTaskTitle;
         private TextView mainDescription;
-        //private TextView completed;
         private TextView asignee;
-        private Button delete;
+        public ImageView delete_icon;
         OnTouchListener onTouchListener;
 
 
@@ -42,12 +42,25 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
             mainTaskTitle = view.findViewById(R.id.mainTaskTitle);
             mainDescription = view.findViewById(R.id.mainDescription);
-            //completed = view.findViewById(R.id.completed);
             asignee = view.findViewById(R.id.asignee);
+            delete_icon = view.findViewById(R.id.image_delete);
             this.onTouchListener = onTouchListener;
 
 
-            itemView.setOnClickListener(this);
+            //itemView.setOnClickListener(this);
+            view.setOnClickListener(this);
+
+            delete_icon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION){
+                        onTouchListener.onDeleteClick(position);
+                    }
+                }
+            });
+
+
         }
 
 
@@ -55,7 +68,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         public void onClick(View v) {
 
             onTouchListener.onCardClick(getAdapterPosition());
-
         }
     }
 
@@ -77,6 +89,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         String mainTaskDescrpt = taskList.get(position).getMainTaskDescription();
         String mainTaskTitle= taskList.get(position).getMainTaskTitle();
         String assignee = taskList.get(position).getAssignee();
+
         //double completedperct = taskList.get(position).getCompletedPercentage();
 
         holder.mainTaskTitle.setText(mainTaskTitle);
@@ -95,6 +108,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
 
     public interface OnTouchListener{
         void onCardClick(int position);
+        void onDeleteClick(int position);
     }
 }
 
