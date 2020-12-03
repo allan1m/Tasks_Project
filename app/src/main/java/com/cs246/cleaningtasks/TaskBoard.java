@@ -1,5 +1,6 @@
 package com.cs246.cleaningtasks;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -17,8 +18,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -26,9 +30,10 @@ public class TaskBoard extends AppCompatActivity
         implements Adapter.OnTouchListener,
         NewTaskDialog.NewTaskDialogListener{
 
-
-    private FirebaseDatabase db = FirebaseDatabase.getInstance();
-    private DatabaseReference root = db.getReference();
+    private static final String TASK = "Task";
+    private FirebaseDatabase database = FirebaseDatabase.getInstance();
+    private DatabaseReference taskReference = database.getReference(TASK);
+    private String employee, task, description;
     private ArrayList<Task> taskList;
     private RecyclerView recyclerView;
     private Button addTaskButton;
@@ -71,9 +76,29 @@ public class TaskBoard extends AppCompatActivity
 
     private void setTaskInfo() {
 
-        taskList.add(new Task("Barrer","Rufino","blabbity blah"));
+        taskReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                employee = snapshot.child("Assignee").getValue(String.class);
+                task = snapshot.child("MainTask").getValue(String.class);
+                description = snapshot.child("TaskDescription").getValue(String.class);
+
+
+
+                taskList.add(new Task(task, employee, description));
+                adapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        /*taskList.add(new Task("Barrer","Rufino","blabbity blah"));
         taskList.add(new Task("Trapear","Allan","blobber"));
-        /*taskList.add(new Task("Aspirar","Daniel","thenasdas"));
+        taskList.add(new Task("Aspirar","Daniel","thenasdas"));
         taskList.add(new Task("Trapear2","Allan2","blobber"));
         taskList.add(new Task("Aspirar2","Daniel2","thenasdas"));
         taskList.add(new Task("Trapear2","Allan2","blobber"));
