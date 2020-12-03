@@ -61,6 +61,13 @@ public class TaskBoard extends AppCompatActivity
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        taskReference.setValue(taskList);
+    }
+
     public void openDialog(){
         NewTaskDialog newTaskDialog = new NewTaskDialog();
         newTaskDialog.show(getSupportFragmentManager(), "New Task Dialog");
