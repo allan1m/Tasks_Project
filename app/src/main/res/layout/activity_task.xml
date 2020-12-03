@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:cardElevation="8dp"
         app:cardCornerRadius="10dp"
-        app:cardBackgroundColor="#6DDF72">
+        app:cardBackgroundColor="#a9d18e">
 
         <!-- container for fixed and collapsible -->
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,6 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="MAIN TASK"
+                    android:textColor="#5F625D"
                     android:textSize="25dp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -51,6 +52,8 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="10dp"
                     android:text="Asignee"
+                    android:textColor="#5F625D"
+                    android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/mainTaskTitle" />
 
@@ -77,6 +80,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:text="Main Task Description"
+                    android:textColor="#5F625D"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -90,6 +94,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:text="Completed: Percentage"
+                    android:textColor="#5F625D"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/mainDescription" />
@@ -122,6 +127,7 @@
 
                     android:layout_marginTop="10dp"
                     android:text="SubTasks"
+                    android:textColor="#5F625D"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />

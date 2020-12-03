@@ -48,7 +48,7 @@
             android:layout_height="25dp"
             android:layout_marginTop="124dp"
             android:gravity="center"
-            android:text="Welcome"
+            android:text="Welcome,"
             android:textColor="#5F625D"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
