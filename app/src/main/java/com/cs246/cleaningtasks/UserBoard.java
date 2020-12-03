@@ -46,7 +46,7 @@ public class UserBoard extends AppCompatActivity{
         nameTextView = findViewById(R.id.name);
         occupationTextView = findViewById(R.id.occupation);
         companyTextView = findViewById(R.id.company);
-        button = findViewById(R.id.Task);
+        button = findViewById(R.id.task);
 
         //This method is responsible for collection database info and storing it inside
         //local variables in order to those local variables into textviews
