@@ -1,6 +1,7 @@
 package com.cs246.cleaningtasks;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,14 +27,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class TaskBoard extends AppCompatActivity
         implements Adapter.OnTouchListener,
         NewTaskDialog.NewTaskDialogListener{
 
     private static final String TASK = "Task";
+    private static final String mTask = "New Task";
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
     private DatabaseReference taskReference = database.getReference(TASK);
+    /*private DatabaseReference newTaskReference = database.getReference(mTask);*/
     private String employee, task, description;
     private ArrayList<Task> taskList;
     private RecyclerView recyclerView;
@@ -62,10 +68,16 @@ public class TaskBoard extends AppCompatActivity
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
 
-        taskReference.setValue(taskList);
+        HashMap map = new HashMap();
+        map.put("New Task", taskList);
+
+        database.getReference().updateChildren(map);
+
+
+
     }
 
     public void openDialog(){
@@ -88,12 +100,13 @@ public class TaskBoard extends AppCompatActivity
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 employee = snapshot.child("Assignee").getValue(String.class);
                 task = snapshot.child("MainTask").getValue(String.class);
-                description = snapshot.child("TaskDescription").getValue(String.class);
+                description = snapshot.child("Description").getValue(String.class);
 
 
 
                 taskList.add(new Task(task, employee, description));
                 adapter.notifyDataSetChanged();
+
 
             }
 
@@ -103,7 +116,38 @@ public class TaskBoard extends AppCompatActivity
             }
         });
 
-        /*taskList.add(new Task("Barrer","Rufino","blabbity blah"));
+        /*newTaskReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                employee = snapshot.child("1").child("Assign").getValue(String.class);
+
+
+                taskList.add(new Task(task, employee, description));
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });*/
+
+        /*taskList.add(new Task(task, employee, description));
         taskList.add(new Task("Trapear","Allan","blobber"));
         taskList.add(new Task("Aspirar","Daniel","thenasdas"));
         taskList.add(new Task("Trapear2","Allan2","blobber"));
@@ -123,8 +167,6 @@ public class TaskBoard extends AppCompatActivity
         Intent intent = new Intent(this, TaskView.class);
         intent.putExtra("IndividualTask", taskList.get(position));
         startActivity(intent);
-
-        //root.setValue(taskList.get(position));
     }
 
     @Override
