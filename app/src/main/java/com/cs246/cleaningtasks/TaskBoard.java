@@ -71,20 +71,20 @@ public class TaskBoard extends AppCompatActivity
     @Override
     protected void onStop() {
         super.onStop();
-        //updateDataBase();
+        updateDataBase();
 
+        /*HashMap map = new HashMap();
+        map.put("New Task", taskList);
+
+        database.getReference().updateChildren(map);*/
+    }
+
+    private void updateDataBase() {
         HashMap map = new HashMap();
         map.put("New Task", taskList);
 
         database.getReference().updateChildren(map);
     }
-
-    /*private void updateDataBase() {
-        HashMap map = new HashMap();
-        map.put("New Task", taskList);
-
-        database.getReference().updateChildren(map);
-    }*/
 
     public void openDialog(){
         NewTaskDialog newTaskDialog = new NewTaskDialog();
@@ -110,9 +110,17 @@ public class TaskBoard extends AppCompatActivity
 
                 taskList.add(new Task(task, employee, description));*/
 
+                ArrayList<Task> tempList= new ArrayList<>();
+
                 for (DataSnapshot task: snapshot.getChildren()) {
                     Task i = task.getValue(Task.class);
-                    taskList.add(i);
+                    tempList.add(i);
+                }
+
+                taskList.clear();
+
+                for (Task a: tempList){
+                    taskList.add(a);
                 }
 
                 adapter.notifyDataSetChanged();
@@ -184,12 +192,13 @@ public class TaskBoard extends AppCompatActivity
         int position = taskList.size();
         taskList.add(new Task(title, assignee, description));
         adapter.notifyItemInserted(position);
-        //updateDataBase();
+        updateDataBase();
     }
 
     @Override
     public void onDeleteClick(int position) {
         taskList.remove(position);
         adapter.notifyItemRemoved(position);
+        updateDataBase();
     }
 }

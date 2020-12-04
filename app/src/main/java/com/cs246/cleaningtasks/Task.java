@@ -16,9 +16,9 @@ public class Task implements Parcelable {
     private ArrayList<SubTask> subTaskList;
 
     public Task() {
-        this.mainTaskTitle = null;
-        this.assignee = null;
-        this.mainTaskDescription = null;
+        this.mainTaskTitle = "";
+        this.assignee = "";
+        this.mainTaskDescription = "";
         this.subTaskList = new ArrayList<>();
     }
 
