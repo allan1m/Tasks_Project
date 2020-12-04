@@ -1,5 +1,6 @@
 package com.cs246.cleaningtasks;
 
+import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -12,8 +13,7 @@ public class Task implements Parcelable {
 
     private String mainTaskDescription;
 
-    private ArrayList<String> subTaskList;
-
+    private ArrayList<SubTask> subTaskList;
 
 
     /**
@@ -27,6 +27,7 @@ public class Task implements Parcelable {
         this.assignee = assignee;
         this.mainTaskDescription = mainTaskDescription;
         this.mainTaskTitle = mainTaskTitle;
+        this.subTaskList = new ArrayList<>();
     }
 
     /**
@@ -37,7 +38,7 @@ public class Task implements Parcelable {
         mainTaskTitle = in.readString();
         assignee = in.readString();
         mainTaskDescription = in.readString();
-        subTaskList = in.createStringArrayList();
+        subTaskList = in.createTypedArrayList(SubTask.CREATOR);
     }
 
     /**
@@ -72,14 +73,14 @@ public class Task implements Parcelable {
      * @param subTask
      */
     public void addSubTask(String subTask){
-        subTaskList.add(subTask);
+        subTaskList.add(new SubTask(subTask));
     }
 
     /**
      * subTaskList Getter
      * @return
      */
-    public ArrayList<String> getSubTaskList() {
+    public ArrayList<SubTask> getSubTaskList() {
         return subTaskList;
     }
 
@@ -87,7 +88,7 @@ public class Task implements Parcelable {
      * subTaskList Setter
      * @param subTaskList
      */
-    public void setSubTaskList(ArrayList<String> subTaskList) {
+    public void setSubTaskList(ArrayList<SubTask> subTaskList) {
         this.subTaskList = subTaskList;
     }
 
@@ -107,6 +108,6 @@ public class Task implements Parcelable {
         dest.writeString(mainTaskTitle);
         dest.writeString(assignee);
         dest.writeString(mainTaskDescription);
-        dest.writeStringList(subTaskList);
+        dest.writeTypedList(subTaskList);
     }
 }
