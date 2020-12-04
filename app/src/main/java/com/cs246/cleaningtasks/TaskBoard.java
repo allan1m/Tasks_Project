@@ -26,6 +26,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,10 +35,10 @@ public class TaskBoard extends AppCompatActivity
         implements Adapter.OnTouchListener,
         NewTaskDialog.NewTaskDialogListener{
 
-    private static final String TASK = "Task";
+    //private static final String TASK = "Task";
     private static final String mTask = "New Task";
     private FirebaseDatabase database = FirebaseDatabase.getInstance();
-    private DatabaseReference taskReference = database.getReference(TASK);
+    private DatabaseReference taskReference = database.getReference(mTask);
     /*private DatabaseReference newTaskReference = database.getReference(mTask);*/
     private String employee, task, description;
     private ArrayList<Task> taskList;
@@ -70,15 +71,20 @@ public class TaskBoard extends AppCompatActivity
     @Override
     protected void onStop() {
         super.onStop();
+        //updateDataBase();
 
         HashMap map = new HashMap();
         map.put("New Task", taskList);
 
         database.getReference().updateChildren(map);
-
-
-
     }
+
+    /*private void updateDataBase() {
+        HashMap map = new HashMap();
+        map.put("New Task", taskList);
+
+        database.getReference().updateChildren(map);
+    }*/
 
     public void openDialog(){
         NewTaskDialog newTaskDialog = new NewTaskDialog();
@@ -98,13 +104,17 @@ public class TaskBoard extends AppCompatActivity
         taskReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                employee = snapshot.child("Assignee").getValue(String.class);
+                /*employee = snapshot.child("Assignee").getValue(String.class);
                 task = snapshot.child("MainTask").getValue(String.class);
                 description = snapshot.child("Description").getValue(String.class);
 
+                taskList.add(new Task(task, employee, description));*/
 
+                for (DataSnapshot task: snapshot.getChildren()) {
+                    Task i = task.getValue(Task.class);
+                    taskList.add(i);
+                }
 
-                taskList.add(new Task(task, employee, description));
                 adapter.notifyDataSetChanged();
 
 
@@ -174,6 +184,7 @@ public class TaskBoard extends AppCompatActivity
         int position = taskList.size();
         taskList.add(new Task(title, assignee, description));
         adapter.notifyItemInserted(position);
+        //updateDataBase();
     }
 
     @Override

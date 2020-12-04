@@ -15,6 +15,12 @@ public class Task implements Parcelable {
 
     private ArrayList<SubTask> subTaskList;
 
+    public Task() {
+        this.mainTaskTitle = null;
+        this.assignee = null;
+        this.mainTaskDescription = null;
+        this.subTaskList = new ArrayList<>();
+    }
 
     /**
      *  The task is a part of the list held in the Board. Each task has 4 quickview
