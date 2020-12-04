@@ -103,8 +103,8 @@ public class TaskBoard extends AppCompatActivity
             }
         });
 
-        /*taskList.add(new Task("Barrer","Rufino","blabbity blah"));
-        taskList.add(new Task("Trapear","Allan","blobber"));
+        taskList.add(new Task("Barrer","Rufino","blabbity blah"));
+        /*taskList.add(new Task("Trapear","Allan","blobber"));
         taskList.add(new Task("Aspirar","Daniel","thenasdas"));
         taskList.add(new Task("Trapear2","Allan2","blobber"));
         taskList.add(new Task("Aspirar2","Daniel2","thenasdas"));
