@@ -77,8 +77,8 @@
 
     <TextView
         android:id="@+id/company"
-        android:layout_width="85dp"
-        android:layout_height="25dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="178dp"
         android:layout_marginLeft="178dp"
         android:layout_marginTop="108dp"

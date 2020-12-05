@@ -111,8 +111,8 @@
                 android:id="@+id/subTaskCont"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="32dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="50dp"
 
                 android:background="#E5FFC8"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -133,34 +133,44 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="358dp"
-                    android:layout_height="467dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+
+                    android:layout_marginStart="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/subTaskTitle">
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/subtask_recycler"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        android:layout_height="match_parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
                 <!-- discuss with sponsor what information he wants to see on quickview -->
 
+
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
+            <Button
+                android:id="@+id/addTaskButton"
+                android:layout_width="45dp"
+                android:layout_height="46dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginRight="4dp"
+                android:layout_marginBottom="4dp"
+                android:text="+"
+                android:textSize="18sp"
+                app:backgroundTint="#B4C7E7"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

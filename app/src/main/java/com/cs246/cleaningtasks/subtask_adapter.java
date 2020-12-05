@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class subtask_adapter extends RecyclerView.Adapter<subtask_adapter.MyViewHolder> {
     private ArrayList<SubTask> subTaskList;
 
+
     public subtask_adapter(ArrayList<SubTask> subTaskList){
         this.subTaskList = subTaskList;
     }

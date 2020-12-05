@@ -18,6 +18,7 @@ public class TaskView extends AppCompatActivity {
     private ArrayList<SubTask> subTaskList;
     private RecyclerView recyclerView;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
