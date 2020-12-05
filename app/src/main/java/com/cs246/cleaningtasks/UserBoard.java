@@ -92,6 +92,8 @@ public class UserBoard extends AppCompatActivity{
 
         //Task Button to navigate to start of tasks
         button.setOnClickListener(new View.OnClickListener() {
+            //Once user profile is made, user will have ability to navigate to task board
+            //from the click of this button.
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), TaskBoard.class));

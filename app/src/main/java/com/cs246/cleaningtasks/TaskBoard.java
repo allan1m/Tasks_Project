@@ -68,6 +68,7 @@ public class TaskBoard extends AppCompatActivity
 
     }
 
+    /*  onStop is used to write information to database before shutdown*/
     @Override
     protected void onStop() {
         super.onStop();
@@ -79,6 +80,9 @@ public class TaskBoard extends AppCompatActivity
         database.getReference().updateChildren(map);*/
     }
 
+    /*  updateDataBase is responsible for updating database with either
+        eliminating task entry or adding task entry.
+     */
     private void updateDataBase() {
         HashMap map = new HashMap();
         map.put("New Task", taskList);
@@ -101,8 +105,12 @@ public class TaskBoard extends AppCompatActivity
 
     private void setTaskInfo() {
 
+        //Read and listen for changes to the entire contents of a path.
         taskReference.addValueEventListener(new ValueEventListener() {
             @Override
+            // onDataChange is meant to read a static snapshot of the contents at a given path, as they
+            // a given path, as they existed at the time of the event. This method is triggered once when
+            // the listener is attached and again every time the data, including children, changes.
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 /*employee = snapshot.child("Assignee").getValue(String.class);
                 task = snapshot.child("MainTask").getValue(String.class);
@@ -110,6 +118,7 @@ public class TaskBoard extends AppCompatActivity
 
                 taskList.add(new Task(task, employee, description));*/
 
+                //Custom ArrayList meant to hold taskList list
                 ArrayList<Task> tempList= new ArrayList<>();
 
                 for (DataSnapshot task: snapshot.getChildren()) {
@@ -192,6 +201,8 @@ public class TaskBoard extends AppCompatActivity
         int position = taskList.size();
         taskList.add(new Task(title, assignee, description));
         adapter.notifyItemInserted(position);
+
+        //upDatabase will update Database when a new task is added
         updateDataBase();
     }
 
@@ -199,6 +210,8 @@ public class TaskBoard extends AppCompatActivity
     public void onDeleteClick(int position) {
         taskList.remove(position);
         adapter.notifyItemRemoved(position);
+
+        //upDatabase will update Database when a task is deleted
         updateDataBase();
     }
 }
