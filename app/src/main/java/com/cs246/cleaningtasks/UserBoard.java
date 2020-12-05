@@ -59,14 +59,14 @@ public class UserBoard extends AppCompatActivity{
                 //Database child "name" from under User is stored in variable name
                 //name is then set to nameTexview so that user can view
                 //his/her name on app
-                String name = snapshot.child("name").getValue(String.class);
+                String name = snapshot.child("Name").getValue(String.class);
                 nameTextView.setText(name);
                 user.setName(name);
 
                 //Database child "occupation" from under User is stored in variable occupation
                 //occupation is then set to nameTexview so that user can view
                 //his/her occupation on app
-                String occupation = snapshot.child("occupation").getValue(String.class);
+                String occupation = snapshot.child("Occupation").getValue(String.class);
                 occupationTextView.setText(occupation);
                 user.setOccupation(occupation);
 
@@ -76,7 +76,7 @@ public class UserBoard extends AppCompatActivity{
                 //Database child "company" from under User is stored in variable company
                 //company is then set to nameTexview so that user can view
                 //his/her company on app
-                String company = snapshot.child("company").getValue(String.class);
+                String company = snapshot.child("Company").getValue(String.class);
                 companyTextView.setText(company);
                 user.setCompany(company);
 
