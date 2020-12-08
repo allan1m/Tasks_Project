@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,10 +21,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class UserBoard extends AppCompatActivity{
-    //Gloabal variables in order to access textviews
+    //Global variables in order to access textviews
     private TextView nameTextView, occupationTextView, idTextView, companyTextView;
 
-    //Gloabl variable in order to access button
+    //Global variable in order to access button
     private Button button;
 
     //Path to User database
@@ -57,7 +58,7 @@ public class UserBoard extends AppCompatActivity{
 
 
                 //Database child "name" from under User is stored in variable name
-                //name is then set to nameTexview so that user can view
+                //name is then set to name Textview so that user can view
                 //his/her name on app
                 String name = snapshot.child("Name").getValue(String.class);
                 nameTextView.setText(name);
@@ -102,4 +103,9 @@ public class UserBoard extends AppCompatActivity{
     }
 
 
+    public void logout(View view) {
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(getApplicationContext(), Login.class));
+        finish();
+    }
 }
