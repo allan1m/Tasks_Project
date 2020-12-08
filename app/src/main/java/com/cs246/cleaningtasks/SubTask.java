@@ -9,6 +9,10 @@ public class SubTask implements Parcelable {
     private String subTask;
     private Boolean isChecked;
 
+    public SubTask() {
+        this.subTask = "";
+        this.isChecked = false;
+    }
     /**
      * Constructor
      * @param subTask

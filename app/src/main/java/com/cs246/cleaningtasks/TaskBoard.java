@@ -55,6 +55,7 @@ public class TaskBoard extends AppCompatActivity
         recyclerView = findViewById(R.id.recyclerView);
         addTaskButton = (Button) findViewById(R.id.addTaskButton);
 
+
         /*Toast.makeText(TaskBoard.this, "Before Thread!", Toast.LENGTH_SHORT).show();
         new Thread(new Runnable() {
             @Override
@@ -202,7 +203,8 @@ public class TaskBoard extends AppCompatActivity
 
         Intent intent = new Intent(this, TaskView.class);
         intent.putExtra("IndividualTask", taskList.get(position));
-        startActivity(intent);
+        intent.putExtra("Position", position);
+        startActivityForResult(intent,1);
     }
 
     @Override
@@ -223,4 +225,17 @@ public class TaskBoard extends AppCompatActivity
         //upDatabase will update Database when a task is deleted
         updateDataBase();
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == 1){
+            if (resultCode == RESULT_OK) {
+                int position = data.getIntExtra("SubTask_Position", 0);
+                taskList.get(position).setSubTaskList( data.getParcelableArrayListExtra("subTaskList") );
+            }
+        }
+    }
+
+
 }

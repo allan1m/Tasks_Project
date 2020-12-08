@@ -16,8 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TaskBoard"></activity>
-        <activity android:name=".TaskView" />
+        <activity android:name=".TaskBoard">
+
+        </activity>
+        <activity android:name=".TaskView">
+            android:launchMode = "singleTop"
+        </activity>
 
         <meta-data
             android:name="preloaded_fonts"
