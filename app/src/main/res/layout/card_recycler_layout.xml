@@ -28,4 +28,20 @@
         app:backgroundTint="#B4C7E7"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/logoutBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:gravity="center"
+        android:onClick="logout"
+        android:text="Logout"
+        android:textAllCaps="true"
+        android:textColor="#5F625D"
+        android:textSize="14sp"
+        app:backgroundTint="#A9D18E"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

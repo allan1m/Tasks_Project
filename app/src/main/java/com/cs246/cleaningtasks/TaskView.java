@@ -51,6 +51,8 @@ public class TaskView extends AppCompatActivity {
         setSubTaskList();
 
         setSubTaskAdapter();
+
+        setTitle("Task / Sub-task");
         
     }
 
