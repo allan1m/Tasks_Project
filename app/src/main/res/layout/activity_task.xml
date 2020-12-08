@@ -168,6 +168,7 @@
                 android:layout_marginBottom="4dp"
                 android:text="+"
                 android:textSize="18sp"
+                android:background="@drawable/roundedbutton"
                 app:backgroundTint="#B4C7E7"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
