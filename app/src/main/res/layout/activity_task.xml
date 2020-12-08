@@ -35,6 +35,7 @@
                     android:id="@+id/mainTaskTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/ramaraja"
                     android:text="MAIN TASK"
                     android:textColor="#5F625D"
                     android:textSize="25dp"
@@ -52,6 +53,7 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="10dp"
                     android:text="Asignee"
+                    android:fontFamily="@font/archivo"
                     android:textColor="#5F625D"
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -79,6 +81,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
+                    android:fontFamily="@font/breeserif"
                     android:text="Main Task Description"
                     android:textColor="#5F625D"
                     app:layout_constraintStart_toStartOf="parent"
@@ -94,6 +97,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginBottom="10dp"
                     android:text="Completed: Percentage"
+                    android:fontFamily="@font/breeserif"
                     android:textColor="#5F625D"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -127,6 +131,7 @@
 
                     android:layout_marginTop="10dp"
                     android:text="SubTasks"
+                    android:fontFamily="@font/archivo"
                     android:textColor="#5F625D"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -150,7 +155,9 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/subtask_recycler"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:textColor="#5F625D"
+                        android:fontFamily="@font/breeserif"/>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
