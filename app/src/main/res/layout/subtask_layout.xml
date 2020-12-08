@@ -14,6 +14,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:text="CheckBox"
+        android:textColor="#5F625D"
+        android:buttonTint="#5F625D"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/image_delete"
         app:layout_constraintStart_toStartOf="parent"
