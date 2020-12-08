@@ -92,10 +92,14 @@ public class Task implements Parcelable {
 
     /**
      * subTaskList Setter
-     * @param subTaskList
+     * @param subTaskList2
      */
-    public void setSubTaskList(ArrayList<SubTask> subTaskList) {
-        this.subTaskList = subTaskList;
+    public void setSubTaskList(ArrayList<SubTask> subTaskList2) {
+        this.subTaskList.clear();
+        for(SubTask i: subTaskList2) {
+            this.subTaskList.add(i);
+        }
+
     }
 
 

@@ -2,6 +2,8 @@ package com.cs246.cleaningtasks;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,9 +16,14 @@ import com.google.api.Distribution;
 
 import java.util.ArrayList;
 
-public class TaskView extends AppCompatActivity {
+public class TaskView extends AppCompatActivity implements NewSubTaskDialog.NewSubTaskDialogListener {
     private ArrayList<SubTask> subTaskList;
     private RecyclerView recyclerView;
+    private subtask_adapter adapter;
+    private Button addSubTaskButton;
+    private Task task;
+
+    private int position;
 
 
     @Override
@@ -25,7 +32,8 @@ public class TaskView extends AppCompatActivity {
         setContentView(R.layout.activity_task);
 
         Intent intent = getIntent();
-        Task task = intent.getParcelableExtra("IndividualTask");
+        task = intent.getParcelableExtra("IndividualTask");
+        position = intent.getIntExtra("Position", 0);
 
         String mainTaskTitle = task.getMainTaskTitle();
         String assignee = task.getAssignee();
@@ -36,35 +44,65 @@ public class TaskView extends AppCompatActivity {
         TextView assignedTo = findViewById(R.id.taskAssignee);
         TextView description = findViewById(R.id.mainDescription);
 
-        /**
-         * @TODO subTaskList
-         */
-
         taskTitle.setText(mainTaskTitle);
         assignedTo.setText(assignee);
         description.setText(mainTaskDescription);
+
+
 
         //Toast.makeText(this, "I WORKED", Toast.LENGTH_SHORT).show();
 
         recyclerView = findViewById(R.id.subtask_recycler);
 
-        setSubTaskList();
-
         setSubTaskAdapter();
+
+
+
+        addSubTaskButton = findViewById(R.id.addSubTaskButton);
+
+        addSubTaskButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openNewSubTaskDialog();
+            }
+        });
         
     }
 
+    private void openNewSubTaskDialog() {
+        NewSubTaskDialog newSubTaskDialog = new NewSubTaskDialog();
+        newSubTaskDialog.show(getSupportFragmentManager(), "Add SubTask Dialog");
+    }
+
     private void setSubTaskAdapter() {
-        subtask_adapter adapter = new subtask_adapter(subTaskList);
+        adapter = new subtask_adapter(subTaskList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
     }
 
-    private void setSubTaskList() {
-        subTaskList.add(new SubTask("Cook"));
-        subTaskList.add(new SubTask("Cook"));
+
+    @Override
+    public void applySubTask(String title) {
+        int position = subTaskList.size();
+        subTaskList.add(new SubTask(title));
+        adapter.notifyItemInserted(position);
+
+
+
     }
 
+
+    @Override
+    public void onBackPressed() {
+
+        Intent resultIntent = new Intent();
+        resultIntent.putParcelableArrayListExtra("subTaskList", subTaskList);
+        resultIntent.putExtra("SubTask_Position", position);
+
+        setResult(RESULT_OK, resultIntent);
+        super.onBackPressed();
+
+    }
 }

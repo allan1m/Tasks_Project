@@ -24,8 +24,8 @@ public class Login extends AppCompatActivity {
     TextView mCreateBtn;
     ProgressBar progressBar;
     FirebaseAuth fAuth;
-    private FirebaseDatabase db = FirebaseDatabase.getInstance();
-    private DatabaseReference root = db.getReference();
+    //private FirebaseDatabase db = FirebaseDatabase.getInstance();
+    //private DatabaseReference root = db.getReference();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
