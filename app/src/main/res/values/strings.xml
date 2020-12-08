@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">CleaningTasks</string>
+    <string name="textview">TextView</string>
+    <string name="welcome">Welcome,</string>
+    <string name="occupation">Occupation</string>
+    <string name="company">Company</string>
+    <string name="go_to_tasks">Go to tasks</string>
 </resources>

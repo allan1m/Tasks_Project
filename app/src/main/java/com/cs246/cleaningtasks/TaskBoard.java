@@ -55,6 +55,15 @@ public class TaskBoard extends AppCompatActivity
         recyclerView = findViewById(R.id.recyclerView);
         addTaskButton = (Button) findViewById(R.id.addTaskButton);
 
+        /*Toast.makeText(TaskBoard.this, "Before Thread!", Toast.LENGTH_SHORT).show();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(TaskBoard.this, "First Thread Example Running!", Toast.LENGTH_SHORT).show();
+                setTaskInfo();
+            }
+        }).start();*/
+
         setTaskInfo();
         setAdapter();
 
@@ -65,7 +74,7 @@ public class TaskBoard extends AppCompatActivity
             }
         });
 
-
+        setTitle("Adding task");
     }
 
     /*  onStop is used to write information to database before shutdown*/
