@@ -61,7 +61,7 @@ public class Login extends AppCompatActivity {
                     mPassword.setError("Password must have 8 characters!");
                     return;
                 }
-                progressBar.setVisibility(View.VISIBLE);
+                //progressBar.setVisibility(View.VISIBLE);
 
                 //SIGN-IN WITH THE EMAIL AND PASSWORD REGISTERED
                 fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
