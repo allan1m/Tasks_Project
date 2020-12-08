@@ -49,7 +49,7 @@ public class Register extends AppCompatActivity {
         fStore = FirebaseFirestore.getInstance();
 
         if (fAuth.getCurrentUser() != null) {
-            startActivity(new Intent(getApplicationContext(), UserBoard.class));
+            startActivity(new Intent(getApplicationContext(), TaskBoard.class));
             finish();
         }
 
