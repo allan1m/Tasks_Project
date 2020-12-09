@@ -88,7 +88,7 @@ public class TaskView extends AppCompatActivity
     @Override
     public void applySubTask(String title) {
         int position = subTaskList.size();
-        subTaskList.add(new SubTask(title));
+        subTaskList.add(new SubTask(title, false));
         adapter.notifyItemInserted(position);
 
 

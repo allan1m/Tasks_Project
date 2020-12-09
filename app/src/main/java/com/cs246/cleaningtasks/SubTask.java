@@ -7,25 +7,25 @@ import java.util.ArrayList;
 
 public class SubTask implements Parcelable {
     private String subTask;
-    private Boolean isChecked;
+    private Boolean checkedStatus;
 
     public SubTask() {
-        this.subTask = "";
-        this.isChecked = false;
+
+
     }
     /**
      * Constructor
      * @param subTask
      */
-    public SubTask(String subTask) {
+    public SubTask(String subTask, Boolean isChecked) {
         this.subTask = subTask;
-        this.isChecked = false;
+        this.checkedStatus = isChecked;
     }
 
     protected SubTask(Parcel in) {
         subTask = in.readString();
         byte tmpIsChecked = in.readByte();
-        isChecked = tmpIsChecked == 0 ? null : tmpIsChecked == 1;
+        checkedStatus = tmpIsChecked == 0 ? null : tmpIsChecked == 1;
     }
 
     public static final Creator<SubTask> CREATOR = new Creator<SubTask>() {
@@ -41,11 +41,11 @@ public class SubTask implements Parcelable {
     };
 
     public void setIsChecked(Boolean isChecked){
-        this.isChecked = isChecked;
+        this.checkedStatus = isChecked;
     }
 
     public Boolean getCheckedStatus(){
-        return isChecked;
+        return checkedStatus;
     }
 
     /**
@@ -72,6 +72,6 @@ public class SubTask implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(subTask);
-        dest.writeByte((byte) (isChecked == null ? 0 : isChecked ? 1 : 2));
+        dest.writeByte((byte) (checkedStatus == null ? 0 : checkedStatus ? 1 : 2));
     }
 }

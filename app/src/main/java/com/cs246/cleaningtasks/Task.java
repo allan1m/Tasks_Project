@@ -36,6 +36,13 @@ public class Task implements Parcelable {
         this.subTaskList = new ArrayList<>();
     }
 
+    public Task(Task copiedTask) {
+        this.assignee = copiedTask.getAssignee();
+        this.mainTaskDescription = copiedTask.getMainTaskDescription();
+        this.mainTaskTitle = copiedTask.getMainTaskTitle();
+        this.subTaskList = copiedTask.getSubTaskList();
+    }
+
     /**
      * Parcelable constructor
      * @param in
@@ -78,8 +85,8 @@ public class Task implements Parcelable {
      * AddTask: Adds a task to the subTaskList
      * @param subTask
      */
-    public void addSubTask(String subTask){
-        subTaskList.add(new SubTask(subTask));
+    public void addSubTask(String subTask, Boolean isChecked){
+        subTaskList.add(new SubTask(subTask, isChecked));
     }
 
     /**

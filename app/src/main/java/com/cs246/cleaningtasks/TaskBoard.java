@@ -94,6 +94,7 @@ public class TaskBoard extends AppCompatActivity
         eliminating task entry or adding task entry.
      */
     private void updateDataBase() {
+        adapter.notifyDataSetChanged();
         HashMap map = new HashMap();
         map.put("New Task", taskList);
 
@@ -132,7 +133,7 @@ public class TaskBoard extends AppCompatActivity
                 ArrayList<Task> tempList= new ArrayList<>();
 
                 for (DataSnapshot task: snapshot.getChildren()) {
-                    Task i = task.getValue(Task.class);
+                    Task i = new Task(task.getValue(Task.class));
                     tempList.add(i);
                 }
 
