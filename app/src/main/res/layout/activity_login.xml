@@ -9,8 +9,8 @@
 
   <TextView
       android:id="@+id/textView"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
+      android:layout_width="299dp"
+      android:layout_height="104dp"
       android:fontFamily="@font/ramaraja"
       android:gravity="center"
       android:text="Sunshine Cleaning Solution"
@@ -91,5 +91,20 @@
       app:layout_constraintHorizontal_bias="0.0"
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/password" />
+
+  <TextView
+      android:id="@+id/newAccount"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="108dp"
+      android:fontFamily="@font/artifika"
+      android:text="New here? Create account!"
+      android:textColor="#5F625D"
+      android:textSize="12sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.497"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/loginBtn" />
+  d
 
 </androidx.constraintlayout.widget.ConstraintLayout>

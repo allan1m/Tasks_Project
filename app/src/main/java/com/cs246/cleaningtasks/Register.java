@@ -17,6 +17,8 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -33,6 +35,8 @@ public class Register extends AppCompatActivity {
     FirebaseFirestore fStore;
     String userID;
     private View decorView;
+    private FirebaseDatabase dbUsers = FirebaseDatabase.getInstance();
+    private DatabaseReference userReference = dbUsers.getReference().child("USERS");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,7 +85,7 @@ public class Register extends AppCompatActivity {
                     mPassword.setError("Password must have 8 characters!");
                     return;
                 }
-                progressBar.setVisibility(View.VISIBLE);
+                //progressBar.setVisibility(View.VISIBLE);
 
                 //REGISTERING THE USER AND PASSWORD THEN SAVING DATA ON FIREBASE
                 fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -94,6 +98,7 @@ public class Register extends AppCompatActivity {
                             DocumentReference documentReference = fStore.collection("users").document(userID);
                             Map<String,Object> user = new HashMap<>();
                             user.put("fullName",fullName);
+                            userReference.setValue(mFullName);
                             user.put("email",email);
                             user.put("password",password);
                             user.put("phoneNumber",phone);
@@ -135,7 +140,6 @@ public class Register extends AppCompatActivity {
         return View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |
                 View.SYSTEM_UI_FLAG_FULLSCREEN |
-                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
                 View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
                 View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
     }
