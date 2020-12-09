@@ -102,6 +102,23 @@ public class Task implements Parcelable {
 
     }
 
+    public String calculateCompleted(){
+        int completed = 0;
+
+        for(SubTask i: subTaskList){
+            if(i.getCheckedStatus() == true){
+                completed = completed + 1;
+            }
+        }
+
+        String completedTotal = "Completed: " +
+                Integer.toString(completed) +
+                " / " +
+                Integer.toString( (subTaskList.size()) );
+
+        return completedTotal;
+    }
+
 
     @Override
     public int describeContents() {

@@ -235,6 +235,7 @@ public class TaskBoard extends AppCompatActivity
                 taskList.get(position).setSubTaskList( data.getParcelableArrayListExtra("subTaskList") );
             }
         }
+        adapter.notifyDataSetChanged();
     }
 
 

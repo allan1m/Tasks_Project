@@ -16,7 +16,9 @@ import com.google.api.Distribution;
 
 import java.util.ArrayList;
 
-public class TaskView extends AppCompatActivity implements NewSubTaskDialog.NewSubTaskDialogListener {
+public class TaskView extends AppCompatActivity
+        implements NewSubTaskDialog.NewSubTaskDialogListener,
+        subtask_adapter.ClickListener {
     private ArrayList<SubTask> subTaskList;
     private RecyclerView recyclerView;
     private subtask_adapter adapter;
@@ -75,7 +77,7 @@ public class TaskView extends AppCompatActivity implements NewSubTaskDialog.NewS
     }
 
     private void setSubTaskAdapter() {
-        adapter = new subtask_adapter(subTaskList);
+        adapter = new subtask_adapter(subTaskList, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -105,4 +107,16 @@ public class TaskView extends AppCompatActivity implements NewSubTaskDialog.NewS
         super.onBackPressed();
 
     }
+    @Override
+    public void onDeleteClick(int position) {
+        subTaskList.remove(position);
+        adapter.notifyItemRemoved(position);
+    }
+
+    @Override
+    public void onCheckedClick(int position, Boolean isChecked) {
+        subTaskList.get(position).setIsChecked(isChecked);
+    }
+
+
 }

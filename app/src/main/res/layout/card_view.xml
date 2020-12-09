@@ -9,8 +9,8 @@
 
 
     <androidx.cardview.widget.CardView
-        android:layout_width="380dp"
-        android:layout_height="147dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="48dp"
         app:cardBackgroundColor="#6DDF72"
         app:cardCornerRadius="10dp"
@@ -23,7 +23,7 @@
         <!-- container for fixed and collapsible -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="#a9d18e"
             android:padding="10dp">
 

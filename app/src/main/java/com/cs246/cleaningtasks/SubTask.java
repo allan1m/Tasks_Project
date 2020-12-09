@@ -40,6 +40,14 @@ public class SubTask implements Parcelable {
         }
     };
 
+    public void setIsChecked(Boolean isChecked){
+        this.isChecked = isChecked;
+    }
+
+    public Boolean getCheckedStatus(){
+        return isChecked;
+    }
+
     /**
      * subTaskList Getter
      * @return

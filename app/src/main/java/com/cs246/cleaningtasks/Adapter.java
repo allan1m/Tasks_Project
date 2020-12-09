@@ -33,6 +33,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         private TextView mainTaskTitle;
         private TextView mainDescription;
         private TextView asignee;
+        private TextView completedStatus;
         public ImageView delete_icon;
         OnTouchListener onTouchListener;
 
@@ -43,6 +44,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
             mainTaskTitle = view.findViewById(R.id.mainTaskTitle);
             mainDescription = view.findViewById(R.id.mainDescription);
             asignee = view.findViewById(R.id.asignee);
+            completedStatus = view.findViewById(R.id.completed);
             delete_icon = view.findViewById(R.id.image_delete);
             this.onTouchListener = onTouchListener;
 
@@ -89,12 +91,14 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         String mainTaskDescrpt = taskList.get(position).getMainTaskDescription();
         String mainTaskTitle= taskList.get(position).getMainTaskTitle();
         String assignee = taskList.get(position).getAssignee();
+        String completedStat = taskList.get(position).calculateCompleted();
 
         //double completedperct = taskList.get(position).getCompletedPercentage();
 
         holder.mainTaskTitle.setText(mainTaskTitle);
         holder.asignee.setText(assignee);
         holder.mainDescription.setText(mainTaskDescrpt);
+        holder.completedStatus.setText(completedStat);
         //holder.completed.setText(completedperct);
     }
 
