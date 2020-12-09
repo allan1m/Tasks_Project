@@ -2,19 +2,12 @@ package com.cs246.cleaningtasks;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.app.ActionBar;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,7 +21,6 @@ public class Login extends AppCompatActivity {
     EditText mEmail, mPassword;
     Button mLoginBtn;
     TextView mCreateBtn;
-    ProgressBar progressBar;
     FirebaseAuth fAuth;
     private FirebaseDatabase db = FirebaseDatabase.getInstance();
     private DatabaseReference root = db.getReference();
@@ -77,7 +69,6 @@ public class Login extends AppCompatActivity {
                     mPassword.setError("Password must have 8 characters!");
                     return;
                 }
-                //progressBar.setVisibility(View.VISIBLE);
 
                 //SIGN-IN WITH THE EMAIL AND PASSWORD REGISTERED
                 fAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -88,7 +79,6 @@ public class Login extends AppCompatActivity {
                             startActivity(new Intent(getApplicationContext(), TaskBoard.class));
                         }else{
                             Toast.makeText(Login.this, "Login User With Email: Failure! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.GONE);
                         }
                     }
                 });

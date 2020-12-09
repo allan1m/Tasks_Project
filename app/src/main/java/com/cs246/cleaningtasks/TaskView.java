@@ -5,15 +5,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.api.Distribution;
-
 import java.util.ArrayList;
 
 public class TaskView extends AppCompatActivity
@@ -40,35 +35,26 @@ public class TaskView extends AppCompatActivity
         String mainTaskTitle = task.getMainTaskTitle();
         String assignee = task.getAssignee();
         String mainTaskDescription = task.getMainTaskDescription();
+
         subTaskList = task.getSubTaskList();
 
         TextView taskTitle = findViewById(R.id.mainTaskTitle);
         TextView assignedTo = findViewById(R.id.taskAssignee);
         TextView description = findViewById(R.id.mainDescription);
-
         taskTitle.setText(mainTaskTitle);
         assignedTo.setText(assignee);
         description.setText(mainTaskDescription);
 
-
-
-        //Toast.makeText(this, "I WORKED", Toast.LENGTH_SHORT).show();
-
         recyclerView = findViewById(R.id.subtask_recycler);
-
         setSubTaskAdapter();
 
-
-
         addSubTaskButton = findViewById(R.id.addSubTaskButton);
-
         addSubTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openNewSubTaskDialog();
             }
         });
-        
     }
 
     private void openNewSubTaskDialog() {
@@ -90,9 +76,6 @@ public class TaskView extends AppCompatActivity
         int position = subTaskList.size();
         subTaskList.add(new SubTask(title, false));
         adapter.notifyItemInserted(position);
-
-
-
     }
 
 
@@ -105,7 +88,6 @@ public class TaskView extends AppCompatActivity
 
         setResult(RESULT_OK, resultIntent);
         super.onBackPressed();
-
     }
     @Override
     public void onDeleteClick(int position) {
@@ -117,6 +99,4 @@ public class TaskView extends AppCompatActivity
     public void onCheckedClick(int position, Boolean isChecked) {
         subTaskList.get(position).setIsChecked(isChecked);
     }
-
-
 }

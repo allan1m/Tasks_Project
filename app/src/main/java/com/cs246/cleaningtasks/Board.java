@@ -1,7 +1,6 @@
 package com.cs246.cleaningtasks;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Board {
 

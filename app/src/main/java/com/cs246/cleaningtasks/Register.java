@@ -9,7 +9,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -21,7 +20,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,7 +29,6 @@ public class Register extends AppCompatActivity {
     Button mRegisterBtn;
     TextView mLoginBtn;
     FirebaseAuth fAuth;
-    ProgressBar progressBar;
     FirebaseFirestore fStore;
     String userID;
     private View decorView;
@@ -85,7 +82,6 @@ public class Register extends AppCompatActivity {
                     mPassword.setError("Password must have 8 characters!");
                     return;
                 }
-                //progressBar.setVisibility(View.VISIBLE);
 
                 //REGISTERING THE USER AND PASSWORD THEN SAVING DATA ON FIREBASE
                 fAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -112,7 +108,6 @@ public class Register extends AppCompatActivity {
                             startActivity(new Intent(getApplicationContext(), TaskBoard.class));
                         }else{
                             Toast.makeText(Register.this, "Create User With Email: Failure! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
-                            progressBar.setVisibility(View.GONE);
                         }
                     }
                 });

@@ -3,8 +3,6 @@ package com.cs246.cleaningtasks;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.util.ArrayList;
-
 public class SubTask implements Parcelable {
     private String subTask;
     private Boolean checkedStatus;

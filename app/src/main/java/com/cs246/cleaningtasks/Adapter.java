@@ -3,13 +3,10 @@ package com.cs246.cleaningtasks;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 
 /**
@@ -93,13 +90,11 @@ public class Adapter extends RecyclerView.Adapter<Adapter.MyViewHolder> {
         String assignee = taskList.get(position).getAssignee();
         String completedStat = taskList.get(position).calculateCompleted();
 
-        //double completedperct = taskList.get(position).getCompletedPercentage();
 
         holder.mainTaskTitle.setText(mainTaskTitle);
         holder.asignee.setText(assignee);
         holder.mainDescription.setText(mainTaskDescrpt);
         holder.completedStatus.setText(completedStat);
-        //holder.completed.setText(completedperct);
     }
 
     /**

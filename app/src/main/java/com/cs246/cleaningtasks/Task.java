@@ -1,9 +1,7 @@
 package com.cs246.cleaningtasks;
 
-import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import java.util.ArrayList;
 
 public class Task implements Parcelable {
