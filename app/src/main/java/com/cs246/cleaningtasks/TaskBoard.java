@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,6 +47,8 @@ public class TaskBoard extends AppCompatActivity
     private Button addTaskButton;
     private Adapter adapter;
     private int tempPosition;
+    private Button logOut;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,16 +57,16 @@ public class TaskBoard extends AppCompatActivity
         taskList = new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerView);
         addTaskButton = (Button) findViewById(R.id.addTaskButton);
+        logOut = findViewById(R.id.logoutBtn);
 
-
-        /*Toast.makeText(TaskBoard.this, "Before Thread!", Toast.LENGTH_SHORT).show();
-        new Thread(new Runnable() {
+        logOut.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                Toast.makeText(TaskBoard.this, "First Thread Example Running!", Toast.LENGTH_SHORT).show();
-                setTaskInfo();
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getApplicationContext(), Login.class));
+                finish();
             }
-        }).start();*/
+        });
 
         setTaskInfo();
         setAdapter();
