@@ -46,7 +46,7 @@ public class TaskBoard extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(getApplicationContext(), Login.class));
+                startActivity(new Intent(getApplicationContext(), Log_In.class));
                 finish();
             }
         });
