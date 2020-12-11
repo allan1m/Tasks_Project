@@ -40,10 +40,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:20.0.1'
     implementation 'com.google.firebase:firebase-firestore:22.0.0'
     implementation 'com.google.firebase:firebase-database:19.5.1'
-    testImplementation 'junit:junit:4.+'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.7.0'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.firebaseui:firebase-ui-auth:6.4.0'
+    testImplementation 'com.google.truth:truth:1.0.1'
 
     //CardView and RecyclerView
     implementation 'androidx.cardview:cardview:1.0.0'
