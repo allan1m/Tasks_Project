@@ -154,6 +154,11 @@ public class Register extends AppCompatActivity {
         }
     }
 
+    /**
+     * <h2>Screen settings</h2>
+     * <p>Some screen settings like full screen and settings to hide the tittle bar</p>
+     * @return
+     */
     private int hideSystemBars(){
         return View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
                 View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |
