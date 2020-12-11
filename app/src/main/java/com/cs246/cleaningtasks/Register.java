@@ -23,8 +23,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * <h1>REGISTER</h1>
+ * <p>This class is used  to register new users to Firebase Auth</p>
+ */
 public class Register extends AppCompatActivity {
-    public static final String TAG = "TAG";
+    private static final String TAG = "Register";
     EditText mFullName, mEmail, mPassword, mPhone;
     Button mRegisterBtn;
     TextView mLoginBtn;
@@ -35,10 +39,17 @@ public class Register extends AppCompatActivity {
     private FirebaseDatabase dbUsers = FirebaseDatabase.getInstance();
     private DatabaseReference userReference = dbUsers.getReference().child("USERS");
 
+    /**
+     * <h2>Register Oncreate</h2>
+     * <p>Sets all the widgets and click listeners</p>
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        //decorView handles the background of the Log_In layout
         decorView = getWindow().getDecorView();
         decorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
             @Override
@@ -48,6 +59,7 @@ public class Register extends AppCompatActivity {
             }
         });
 
+        //Widget association
         mFullName = findViewById(R.id.fullName);
         mEmail = findViewById(R.id.email);
         mPassword = findViewById(R.id.password);
@@ -57,11 +69,17 @@ public class Register extends AppCompatActivity {
         fAuth = FirebaseAuth.getInstance();
         fStore = FirebaseFirestore.getInstance();
 
+        //For Security purposes the app forces the login each time,
+        //   code left here to allow for the sponsor to change their mind
+        //   in the future.
+        /*
         if (fAuth.getCurrentUser() != null) {
             startActivity(new Intent(getApplicationContext(), TaskBoard.class));
             finish();
         }
+        */
 
+        //Click Listener for Register Button: Creates new user in Firebase
         mRegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -101,7 +119,7 @@ public class Register extends AppCompatActivity {
                             documentReference.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
-                                    Log.d(TAG, "onSuccess: user Profile is created for " + userID);
+
                                 }
                             });
 
@@ -114,6 +132,10 @@ public class Register extends AppCompatActivity {
             }
         });
 
+        /**
+         * <h3>Login Button Listener</h3>
+         * <p>Brings you back to login once user is created</p>
+         */
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,6 +144,7 @@ public class Register extends AppCompatActivity {
         });
 
     }
+
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
