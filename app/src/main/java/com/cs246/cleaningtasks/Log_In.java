@@ -103,6 +103,7 @@ public class Log_In extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             Toast.makeText(Log_In.this, "Logged in Successfully", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(getApplicationContext(), TaskBoard.class));
+                            finish();
                         }else{
                             Toast.makeText(Log_In.this, "Login User With Email: Failure! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }

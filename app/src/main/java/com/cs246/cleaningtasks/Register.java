@@ -112,7 +112,6 @@ public class Register extends AppCompatActivity {
                             DocumentReference documentReference = fStore.collection("users").document(userID);
                             Map<String,Object> user = new HashMap<>();
                             user.put("fullName",fullName);
-                            userReference.setValue(mFullName);
                             user.put("email",email);
                             user.put("password",password);
                             user.put("phoneNumber",phone);
@@ -124,6 +123,7 @@ public class Register extends AppCompatActivity {
                             });
 
                             startActivity(new Intent(getApplicationContext(), TaskBoard.class));
+                            finish();
                         }else{
                             Toast.makeText(Register.this, "Create User With Email: Failure! " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }
