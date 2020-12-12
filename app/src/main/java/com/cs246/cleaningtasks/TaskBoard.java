@@ -3,15 +3,23 @@ package com.cs246.cleaningtasks;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.api.CommonStatusCodes;
+import com.google.android.gms.vision.barcode.Barcode;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,6 +48,10 @@ public class TaskBoard extends AppCompatActivity
     private Button addTaskButton;
     private Adapter adapter;
     private Button logOut;
+    private ImageView scanBarCode;
+    private ArrayList<Task> presetTasks;
+
+    int MY_PERMISSIONS_REQUEST_CAMERA=0;
 
     /**
      * <h2>TaskBoard onCreate</h2>
@@ -50,6 +62,19 @@ public class TaskBoard extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.card_recycler_layout);
+
+        //Check for camera permissions and request them if necessary
+        cameraPermissions();
+
+        //Barcode Scanner
+        scanBarCode = findViewById(R.id.qr_scan);
+
+        scanBarCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scanBarcode();
+            }
+        });
 
         //Widget Associations and variable initializations
         taskList = new ArrayList<>();
@@ -83,9 +108,65 @@ public class TaskBoard extends AppCompatActivity
         //sets the adapter for the recyclerview
         setAdapter();
 
+        //set preset Tasks for QR/Barcode Code Scanning
+        setPresets();
+
         //Title for Activity
         setTitle("Adding task");
     }
+
+    /**
+     * <h2>TaskBoard setPresets</h2>
+     * <p>Populates preset Tasks</p>
+     * <p>Depending on sponsor these can be called from the cloud</p>
+     */
+    private void setPresets() {
+        //Demo Presets
+        // These can be handled with a MAP later to receive keys from codes
+        presetTasks = new ArrayList<>();
+        presetTasks.add(0 , new Task("Main Bathroom Cleaning", "Demo Asignee", "Routine cleaning of main Bathroom, no special tasks assigned"));
+        ArrayList<SubTask> subTaskList = new ArrayList<>();
+        subTaskList.add( new SubTask("Clean Toilet", false));
+        subTaskList.add( new SubTask("Clean Shower", false));
+        subTaskList.add( new SubTask("Clean Sink", false));
+        subTaskList.add( new SubTask("Clean Tub", false));
+        subTaskList.add( new SubTask("Sweep Floor", false));
+        subTaskList.add( new SubTask("Mop Floor", false));
+        presetTasks.get(0).setSubTaskList(subTaskList);
+    }
+
+    /**
+     * <h2>TaskBoard cameraPermissions</h2>
+     * <p>Checks for camera permissions and requests them if not yet provided/denied</p>
+     */
+    private void cameraPermissions() {
+        // Here, this is the current activity
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+        {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CAMERA))
+            {
+
+            }
+            else
+            {
+                ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.CAMERA}, MY_PERMISSIONS_REQUEST_CAMERA );
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        }
+    }
+
+    /**
+     * <h2>TaskBoard scanBarcode</h2>
+     * <p>Launches Barcode Scanning Activity</p>
+     */
+    public void scanBarcode(){
+        Intent intent = new Intent(this, ScanBarCode.class);
+        startActivityForResult(intent, 0);
+    }
+
+
 
     /**
      * <h2>Activity LifeCycle ONSTOP</h2>
@@ -252,6 +333,7 @@ public class TaskBoard extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         //RequestCode 1 is the one provided in OnCardClick
         if(requestCode == 1){
             //If result was provided from the opened activity
@@ -262,7 +344,72 @@ public class TaskBoard extends AppCompatActivity
                 taskList.get(position).setSubTaskList( data.getParcelableArrayListExtra("subTaskList") );
             }
         }
+
+        //RequestCode 0 is the one provided for BarcodeScanner
+        if(requestCode == 0){
+            //If Success result was provided from the opened activity
+            if (resultCode == CommonStatusCodes.SUCCESS){
+                if(data != null){
+                    Barcode barcode = data.getParcelableExtra("barcode");
+                    String result = barcode.displayValue;
+
+                    //Currently works with simple integers, needs modifying depending on
+                    //   sponsors needs.
+                    if(isNumeric(result)){
+                        AddTaskFromCode(Integer.valueOf(result));
+                    } else {
+
+                        Toast.makeText(this, "No Task by that Code!", Toast.LENGTH_SHORT).show();
+                    }
+
+                } else {
+                    Toast.makeText(this, "Couldn't Read Code", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
         //Make sure changes are notified; updates completion status
         adapter.notifyDataSetChanged();
+    }
+
+    /**
+     * <h2>TaskBoard isNumeric</h2>
+     * <p>Checks if the input from barcode scan is numeric: This is
+     * only needed because the current scheme of presets is based on integers</p>
+     * <p>Should the scheme change after initial demo, the error checking this performs
+     * might not be needed</p>
+     * @param strNum
+     * @return
+     */
+    public static boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double d = Double.parseDouble(strNum);
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
+    /**
+     * <h2>TaskBoard AddTaskFromCode</h2>
+     * @param valueOf
+     */
+    private void AddTaskFromCode(Integer valueOf) {
+        if(valueOf < presetTasks.size() && valueOf >= 0)
+        {
+            //This ensures it is added at the end
+            int position = taskList.size();
+            //task creation
+            taskList.add(new Task(presetTasks.get(valueOf)));
+            //notify that an item was inserted into tasklist, this allows for animations
+            //   to be used on insertion
+            adapter.notifyItemInserted(position);
+            //upDatabase will update Database when a new task is added
+            updateDataBase();
+        } else {
+            Toast.makeText(this, "No Task by that Code!", Toast.LENGTH_SHORT).show();
+        }
+
     }
 }
