@@ -121,7 +121,6 @@ public class Register extends AppCompatActivity {
 
                                 }
                             });
-
                             startActivity(new Intent(getApplicationContext(), TaskBoard.class));
                             finish();
                         }else{
